@@ -61,6 +61,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="PatienceTests.cs" />
     <Compile Include="ElementLocatorTests.cs" />
     <Compile Include="ConnectingToTheGrid.cs" />
     <Compile Include="InitWebdriver.cs" />
