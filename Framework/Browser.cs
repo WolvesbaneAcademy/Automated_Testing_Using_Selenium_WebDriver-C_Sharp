@@ -25,7 +25,7 @@ namespace Framework
         {
             return new InternetExplorerDriver();
         }
-        public static IWebDriver Driver(Uri driverHub, string browserName, string browserVersion)
+        public static IWebDriver Remote(Uri driverHub, string browserName, string browserVersion)
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             switch (browserName)
@@ -106,9 +106,5 @@ namespace Framework
             return obj;
         }
 
-        public static void Close(IWebDriver driver)
-        {
-            driver.Close();
-        }
     }
 }

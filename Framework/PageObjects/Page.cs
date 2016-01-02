@@ -437,67 +437,6 @@ namespace PV.Selenium.PageObjects
             }
         }
 
-        /// <summary>
-        /// Returns the value from a table cell
-        /// </summary>
-        /// <param name="rowLocator"></param>
-        /// <param name="row"></param>
-        /// <param name="col"></param>
-        /// <returns></returns>
-        public String getCellValue(By rowLocator, int row, int col)
-        {
-            ReadOnlyCollection<IWebElement> rows = this.getAllWhenPresent(rowLocator);
-            ReadOnlyCollection<IWebElement> cols = rows[row].FindElements(By.XPath("./td"));
-
-            return cols[col].Text;
-        }
-
-        /// <summary>
-        /// Finds the provided value in the specified column and returns the row it appears in.
-        /// </summary>
-        /// <param name="rowLocator"></param>
-        /// <param name="col"></param>
-        /// <param name="value"></param>
-        /// <param name="exact"></param>
-        /// <returns></returns>
-        public IWebElement findRowByColValue(By rowLocator, int col, String value, bool exact)
-        {
-            int foundRow = -1;
-
-            ReadOnlyCollection<IWebElement> rows = this.getAllWhenPresent(rowLocator);
-            for (int row = 0; row < rows.Count; row++)
-            {
-                ReadOnlyCollection<IWebElement> cols = rows[row].FindElements(By.XPath("./td"));
-                if (cols.Count > 0)
-                {
-                    if (exact)
-                    {
-                        if (cols[col].Text.Equals(value.ToUpper()))
-                        {
-                            foundRow = row;
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        if (cols[col].Text.Contains(value.ToUpper()))
-                        {
-                            foundRow = row;
-                            break;
-                        }
-                    }
-                }
-            }
-            if (foundRow >= 0)
-            {
-                return rows[foundRow];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
         public string PageSource()
         {
             return driver.PageSource;
