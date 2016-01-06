@@ -33,7 +33,7 @@ namespace PV.Selenium.PageObjects
         {
             this.driver = driver;
             this.pageHandle = driver.CurrentWindowHandle;
-            if (driver.Title == pgTitle)
+            if (isPageTitle(pgTitle))
             {
                 this.pageTitle = pgTitle;
             }
@@ -453,7 +453,7 @@ namespace PV.Selenium.PageObjects
          * @param timeOut
          * @return boolean
          */
-        public bool checkPageTitle(String pageTitle, bool errCapture)
+        public bool isPageTitle(String pageTitle)
         {
             bool matchFound = false;
             try
@@ -462,8 +462,6 @@ namespace PV.Selenium.PageObjects
             }
             catch (TimeoutException toe)
             {
-                if (errCapture)
-                {
                     try
                     {
                         Browser.CaptureError(driver, "timeOut" + new SimpleDateFormat("yyyyMMddhhmm").format(new Date()) + ".jpg");
@@ -473,19 +471,9 @@ namespace PV.Selenium.PageObjects
                        Console.WriteLine(e.StackTrace);
                     }
                     throw toe;
-                }
             }
 
             return matchFound;
-        }
-
-        /**
-         * Determines if this is the current page by comparing the page titles
-         * @return
-         */
-        public bool isCurrent()
-        {
-            return checkPageTitle(pageTitle, true);
         }
 
         /// <summary>
