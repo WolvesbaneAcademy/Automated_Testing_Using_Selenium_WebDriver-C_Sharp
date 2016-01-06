@@ -5,6 +5,7 @@ using Framework;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.IO;
 
 namespace PV.Selenium.PageObjects
 {
@@ -13,7 +14,7 @@ namespace PV.Selenium.PageObjects
         protected IWebDriver driver;
         protected string pageHandle;
         protected string pageTitle;
-        protected int timeOut = 30;
+        protected int timeOut = 10;
 
         public Page() { }
 
@@ -440,6 +441,51 @@ namespace PV.Selenium.PageObjects
         public string PageSource()
         {
             return driver.PageSource;
+        }
+
+        /**
+         * Determines if the provided string is present in the title of the current page. Allows for specifying the amount
+         * of time to wait in seconds. If an error occurs and errCapture is true, a screenshot is saved to the Errors
+         * folder.
+         * 
+         * @param pageTitle
+         * @param errCapture
+         * @param timeOut
+         * @return boolean
+         */
+        public bool checkPageTitle(String pageTitle, bool errCapture)
+        {
+            bool matchFound = false;
+            try
+            {
+                matchFound = (new WebDriverWait(driver, TimeSpan.FromSeconds(Timeout))).Until(ExpectedConditions.TitleContains(pageTitle));
+            }
+            catch (TimeoutException toe)
+            {
+                if (errCapture)
+                {
+                    try
+                    {
+                        Browser.CaptureError(driver, "timeOut" + new SimpleDateFormat("yyyyMMddhhmm").format(new Date()) + ".jpg");
+                    }
+                    catch (IOException e)
+                    {
+                       Console.WriteLine(e.StackTrace);
+                    }
+                    throw toe;
+                }
+            }
+
+            return matchFound;
+        }
+
+        /**
+         * Determines if this is the current page by comparing the page titles
+         * @return
+         */
+        public bool isCurrent()
+        {
+            return checkPageTitle(pageTitle, true);
         }
 
         /// <summary>
