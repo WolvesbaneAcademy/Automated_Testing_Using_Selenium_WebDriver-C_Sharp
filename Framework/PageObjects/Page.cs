@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.IO;
 
-namespace PV.Selenium.PageObjects
+namespace Framework.PageObjects
 {
     public class Page
     {
@@ -464,7 +464,7 @@ namespace PV.Selenium.PageObjects
             {
                     try
                     {
-                        Browser.CaptureError(driver, "timeOut" + new SimpleDateFormat("yyyyMMddhhmm").format(new Date()) + ".jpg");
+                        Browser.CaptureError(driver, "timeOut" + new DateTime().ToString("yyyyMMddhhmm") + ".jpg");
                     }
                     catch (IOException e)
                     {
