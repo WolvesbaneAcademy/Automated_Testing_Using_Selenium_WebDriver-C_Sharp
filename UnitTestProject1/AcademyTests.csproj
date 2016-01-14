@@ -61,6 +61,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="MenuTests.cs" />
     <Compile Include="PatienceTests.cs" />
     <Compile Include="ElementLocatorTests.cs" />
     <Compile Include="ConnectingToTheGrid.cs" />

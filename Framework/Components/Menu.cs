@@ -8,31 +8,33 @@ using OpenQA.Selenium;
 
 namespace Framework.Components
 {
-    class Menu:Page
+    public class Menu:Page
     {
-        private readonly By mnuArticles = By.LinkText("Articles");
+        private readonly By mnuArticles = By.LinkText("ARTICLES");
         private readonly By mnuVideos = By.Id("menu-item-197");
         private readonly By mnuCodeRepository = By.Id("menu-item-179");
-        private readonly By mnuGitLab = By.LinkText("GitLab (Active)");
+        private readonly By mnuGitLab = By.LinkText("GITLAB (ACTIVE)");
 
         public Menu(IWebDriver driver) : base(driver) { }
 
-        public void ClickArticles()
+        public Page ClickArticles()
         {
             IWebElement articles = this.getWhenClickable(mnuArticles);
             articles.Click();
+            return new Page(driver);
         }
 
-        public void clickVideos()
+        public Page clickVideos()
         {
             this.clickWhenReady(mnuVideos);
+            return new Page(driver);
         }
 
-        public void clickGitLab()
+        public Page clickGitLab()
         {
             this.HoverOver(mnuCodeRepository);
             this.clickWhenReady(mnuGitLab);
+            return new Page(driver);
         }
-
     }
 }

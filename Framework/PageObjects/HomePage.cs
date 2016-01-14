@@ -8,7 +8,7 @@ using Framework.Components;
 
 namespace Framework.PageObjects
 {
-    class HomePage : Page
+    public class HomePage : Page
     {
         public HomePage(IWebDriver driver) : base(driver) { }
 
